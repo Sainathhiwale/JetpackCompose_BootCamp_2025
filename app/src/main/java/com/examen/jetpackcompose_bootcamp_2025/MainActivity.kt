@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Jetpack Compose $name!",
+        text = "Jetpack Compose MVVM Architecture$name!",
         modifier = modifier
     )
 }
