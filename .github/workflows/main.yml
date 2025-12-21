@@ -1,39 +1,60 @@
-name: Android CI - Jetpack Compose
+name: Android CI - QA Build (Compose APK + AAB)
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
-      - master
+      - QA
+    types:
+      - closed
 
 jobs:
   build:
-    name: ComposeApp
+    name: QA Compose Build
     runs-on: ubuntu-latest
 
+    # ✅ Run only when DEV → QA PR is merged
+    if: github.event.pull_request.merged == true &&
+      github.event.pull_request.head.ref == 'development'
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout QA Branch
         uses: actions/checkout@v4
+        with:
+          ref: QA
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
       - name: Grant Execute Permission for Gradlew
         run: chmod +x gradlew
 
-      - name: Build the App
-        run: ./gradlew assembleDebug
+      - name: Clean Project
+        run: ./gradlew clean
 
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: ./gradlew testDebugUnitTest
 
-      - name: Upload APK as Artifact
+      # ✅ APK Build
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      # ✅ AAB Build
+      - name: Build Release AAB
+        run: ./gradlew bundleRelease
+
+      # ✅ Upload APK
+      - name: Upload QA APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
+          name: qa-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      # ✅ Upload AAB
+      - name: Upload QA AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
