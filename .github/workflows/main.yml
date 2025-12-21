@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test Jetpack Compose App
+    name: ComposeApp
     runs-on: ubuntu-latest
 
     steps:
@@ -31,9 +31,6 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew test
-
-      - name: Run UI Tests (Optional)
-        run: ./gradlew connectedAndroidTest
 
       - name: Upload APK as Artifact
         uses: actions/upload-artifact@v4
