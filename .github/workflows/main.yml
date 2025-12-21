@@ -1,26 +1,26 @@
-name: Android CI - QA Build (Compose APK + AAB)
+name: Android CI - PROD Build (Compose APK + AAB)
 
 on:
   pull_request:
     branches:
-      - QA
+      - master
     types:
       - closed
 
 jobs:
   build:
-    name: QA Compose Build
+    name: PROD Compose Build
     runs-on: ubuntu-latest
 
-    # ✅ Run only when DEV → QA PR is merged
+    # ✅ Run only when QA → master PR is merged
     if: github.event.pull_request.merged == true &&
-      github.event.pull_request.head.ref == 'development'
+      github.event.pull_request.head.ref == 'QA'
 
     steps:
-      - name: Checkout QA Branch
+      - name: Checkout Master Branch
         uses: actions/checkout@v4
         with:
-          ref: QA
+          ref: master
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -37,24 +37,32 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
 
-      # ✅ APK Build
+      # ✅ Debug APK (internal testing)
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      # ✅ AAB Build
+      # ✅ Release AAB (Play Store)
       - name: Build Release AAB
         run: ./gradlew bundleRelease
 
-      # ✅ Upload APK
-      - name: Upload QA APK
+      - name: Upload PROD Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: qa-debug-apk
+          name: prod-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      # ✅ Upload AAB
-      - name: Upload QA AAB
+      - name: Upload PROD Release AAB
         uses: actions/upload-artifact@v4
         with:
-          name: qa-release-aab
+          name: prod-release-aab
           path: app/build/outputs/bundle/release/app-release.aab
+
+      # ✅ OPTIONAL: PROD TAG (recommended)
+      - name: Create PROD Git Tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          TAG="prod-v1.0.${{ github.run_number }}"
+          git tag $TAG || echo "Tag exists"
+          git push origin $TAG || echo "Tag push skipped"
