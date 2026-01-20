@@ -42,3 +42,13 @@ fun displayText(name:String){
 # 4️⃣ No Data Binding / View Binding required
 - Compose directly works with state.
 - No findViewById, DataBinding, or ViewBinding needed.
+
+# Jetpack Compose mainly has 3 core layouts (Row, Column, Box), Lazy layouts for lists, ConstraintLayout for complex UI, and Scaffold-based layouts for app structure.
+- These are the most commonly used building blocks:
+  - **Column Layout** – Places children vertically
+  - **Row Layout** – Places children horizontally
+  - **Box Layout** – Stacks children on top of each other (like FrameLayout)
+    
+    <img width="566" height="277" alt="image" src="https://github.com/user-attachments/assets/d550ddbd-4542-44f7-95ab-7166ba209924" />
+
+
