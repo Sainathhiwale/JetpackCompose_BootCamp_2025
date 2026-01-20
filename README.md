@@ -51,4 +51,8 @@ fun displayText(name:String){
     
     <img width="566" height="277" alt="image" src="https://github.com/user-attachments/assets/d550ddbd-4542-44f7-95ab-7166ba209924" />
 
+# Column Layout
+  - The Column layout arranges UI components in a vertical linear manner, placing them one below another.
+  
+  <img width="536" height="269" alt="image" src="https://github.com/user-attachments/assets/1347c67f-37fc-4df1-a1f9-8649d0045819" />
 
