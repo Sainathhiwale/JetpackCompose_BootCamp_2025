@@ -170,10 +170,29 @@ fun displayText(name:String){
 <img width="197" height="46" alt="image" src="https://github.com/user-attachments/assets/3573eb30-0f08-4b51-b390-123c0c99ea6f" />
 
 # Alignment & Arrangement Row and Column in Jetpack Compose 
+- What is Alignment
+  
+Alignment refers to the positioning of a composable element within it's parent container, specifying how it should be placed relative to the
+Available space along the horizontal and vertical axes.  
+
+ - Alignment - Cross Axis
+   - Column = Horizontal 
+   - Row = Vertical
+  
+- What is Arrangements
+  
+ Arrangements defines the distribution of multiple composables within container determining their placement along the Main axis.
+
+- Arrangements - Main Axis 
+  - Column = Vertical  
+  - Row - Horizontal
 
 <img width="528" height="226" alt="image" src="https://github.com/user-attachments/assets/21128242-9fe8-4cf0-aed3-6ef505727ad8" />
 
 <img width="546" height="243" alt="image" src="https://github.com/user-attachments/assets/0224d580-4805-4a23-bcdb-75f8b51ba012" />
+
+<img width="531" height="235" alt="image" src="https://github.com/user-attachments/assets/a184041c-5a15-4614-a841-8c4a70df4b77" />
+
 
 
 # Box Layout
