@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -54,14 +55,17 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun rowAndColumnLearn(){
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+   /* Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
          Text("Hello Jetpack Compose 1")
          Text("Hello Jetpack Compose 2")
          Text("Hello Jetpack Compose 3")
+    }*/
+
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+        Text("row layout 1")
+        Spacer(modifier = Modifier.width(16.dp))
+        Text("row layout 2")
     }
-
-
-
 }
 
 @Preview(showBackground = true)
