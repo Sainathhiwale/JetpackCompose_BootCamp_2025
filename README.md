@@ -55,6 +55,7 @@ fun displayText(name:String){
   - The Column layout arranges UI components in a vertical linear manner, placing them one below another.
   
     <img width="536" height="269" alt="image" src="https://github.com/user-attachments/assets/1347c67f-37fc-4df1-a1f9-8649d0045819" />
+    
     - Example
       
      ```
@@ -83,5 +84,31 @@ fun displayText(name:String){
   - The Row layout arranges UI components in a horizontal linear manner, placing them beside each other.
 
     <img width="592" height="279" alt="image" src="https://github.com/user-attachments/assets/92947f49-f1a8-4adf-ae7b-30b34416b99c" />
+
+   - Example
+
+     ```
+     setContent {
+          JetpackCompose_BootCamp_2025Theme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                rowAndColumnLearn()
+            }
+
+          }
+        }
+      
+      @Composable
+     fun rowAndColumnLearn(){
+       Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+        Text("row layout 1")
+        Spacer(modifier = Modifier.width(16.dp))
+        Text("row layout 2")
+       }
+     }
+      
+     ```
 
 
