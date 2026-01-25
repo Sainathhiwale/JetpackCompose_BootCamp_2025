@@ -116,6 +116,31 @@ fun displayText(name:String){
  
  <img width="532" height="275" alt="image" src="https://github.com/user-attachments/assets/a2b8369e-dc5a-4015-b707-7ecf70758e0a" />
 
+- Example
+  
+  ```
+  setContent {
+          JetpackCompose_BootCamp_2025Theme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                rowAndColumnLearn()
+            }
+
+          }
+        }
+      
+     Box(modifier = Modifier.fillMaxSize().background(color = Color.Yellow), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.width(300.dp).height(300.dp).background(Color.Blue)) {
+            Text("Hello Box layout", modifier = Modifier.align(Alignment.Center), Color.White, fontSize = 24.sp,textAlign = TextAlign.Center)
+        }
+    }
+  
+  ```
+  <img width="180" height="382" alt="image" src="https://github.com/user-attachments/assets/40b0f555-44f8-405e-97a2-61a1c9ad719c" />
+
+
     
 
 
