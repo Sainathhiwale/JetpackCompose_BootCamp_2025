@@ -4,8 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -13,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,47 +41,41 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
           JetpackCompose_BootCamp_2025Theme {
-            MyApp(modifier = Modifier.fillMaxSize())
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                rowAndColumnLearn()
+            }
+
           }
         }
     }
 }
 
 @Composable
-fun MyApp(modifier: Modifier =Modifier){
-    Box(
-        modifier = modifier,
-    ){
-        learnTextAndModifier()
+fun rowAndColumnLearn(){
+
+   /* Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+         Text("Hello Jetpack Compose 1")
+         Text("Hello Jetpack Compose 2")
+         Text("Hello Jetpack Compose 3")
+    }*/
+
+   /* Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+        Text("row layout 1")
+        Spacer(modifier = Modifier.width(16.dp))
+        Text("row layout 2")
+    }*/
+    Box(modifier = Modifier.fillMaxSize().background(color = Color.Yellow), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.width(300.dp).height(300.dp).background(Color.Blue)) {
+            Text("Hello Box layout", modifier = Modifier.align(Alignment.Center), Color.White, fontSize = 24.sp,textAlign = TextAlign.Center)
+        }
     }
-}
-@Composable
-fun learnTextAndModifier(){
-    val context = LocalContext.current
-
-    Text(
-        text = stringResource(id= R.string.text_name),
-        fontSize = 18.sp,
-        color = Color.Black,
-        textAlign = TextAlign.Center,
-        fontStyle = FontStyle.Normal,
-        modifier = Modifier
-            .fillMaxSize()
-            .size(60.dp)
-            .clickable {
-                Toast.makeText(context, "text is clicked", Toast.LENGTH_SHORT).show()
-            }
-            .height(60.dp)
-            .width(60.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .wrapContentHeight(Alignment.CenterVertically)
-
-
-    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun learnTextAndModifierPreview() {
-        learnTextAndModifier()
+        rowAndColumnLearn()
 }
