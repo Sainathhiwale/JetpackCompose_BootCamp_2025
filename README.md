@@ -111,4 +111,10 @@ fun displayText(name:String){
       
      ```
 
+# Box Layout
+
+    <img width="1088" height="560" alt="Screenshot 2026-01-26 014433" src="https://github.com/user-attachments/assets/0ea56770-9d39-4e5a-8660-ac9842137a1a" />
+
+    
+
 
