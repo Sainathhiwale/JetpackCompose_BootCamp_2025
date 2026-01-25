@@ -169,6 +169,12 @@ fun displayText(name:String){
   ```
 <img width="197" height="46" alt="image" src="https://github.com/user-attachments/assets/3573eb30-0f08-4b51-b390-123c0c99ea6f" />
 
+# Alignment & Arrangement Row and Column in Jetpack Compose 
+
+<img width="528" height="226" alt="image" src="https://github.com/user-attachments/assets/21128242-9fe8-4cf0-aed3-6ef505727ad8" />
+
+<img width="546" height="243" alt="image" src="https://github.com/user-attachments/assets/0224d580-4805-4a23-bcdb-75f8b51ba012" />
+
 
 # Box Layout
  -Box is a layout that stacks its child composables on top of each other (Z-axis). The last child is drawn on top of the previous ones.
