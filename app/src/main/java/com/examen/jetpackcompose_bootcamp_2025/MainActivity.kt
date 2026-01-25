@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -61,10 +62,15 @@ fun rowAndColumnLearn(){
          Text("Hello Jetpack Compose 3")
     }*/
 
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+   /* Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
         Text("row layout 1")
         Spacer(modifier = Modifier.width(16.dp))
         Text("row layout 2")
+    }*/
+    Box(modifier = Modifier.fillMaxSize().background(color = Color.Yellow), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.width(300.dp).height(300.dp).background(Color.Blue)) {
+            Text("Hello Box layout", modifier = Modifier.align(Alignment.Center), Color.White, fontSize = 24.sp,textAlign = TextAlign.Center)
+        }
     }
 }
 
