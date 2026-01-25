@@ -80,6 +80,21 @@ fun displayText(name:String){
      }
      
      ```
+
+# Column is used when UI elements must appear top to bottom.
+📱 # Real production use cases
+- Login & signup forms
+- Profile details page
+- Settings screen
+- Product description
+- Chat messages
+- Bottom sheets & dialogs
+- Screens
+- Sections
+- Forms
+- Detail pages
+
+  
 # Row Layout
   - The Row layout arranges UI components in a horizontal linear manner, placing them beside each other.
 
@@ -110,6 +125,20 @@ fun displayText(name:String){
      }
       
      ```
+
+# Row is used when UI elements must appear side-by-side. 
+📱 # Real production use cases
+- Icon + Text (toolbar, list items)
+- Button with icon and label
+- Profile image + name + action button
+- Rating stars ⭐⭐⭐⭐⭐
+- Horizontal chips / filters
+- Bottom navigation item (icon + text)
+- Recycler/list items
+- Toolbars
+- Cards
+- Forms
+
 
 # Box Layout
  -Box is a layout that stacks its child composables on top of each other (Z-axis). The last child is drawn on top of the previous ones.
