@@ -112,8 +112,9 @@ fun displayText(name:String){
      ```
 
 # Box Layout
-
-    <img width="1088" height="560" alt="Screenshot 2026-01-26 014433" src="https://github.com/user-attachments/assets/0ea56770-9d39-4e5a-8660-ac9842137a1a" />
+ -Box is a layout that stacks its child composables on top of each other (Z-axis). The last child is drawn on top of the previous ones.
+ 
+ <img width="532" height="275" alt="image" src="https://github.com/user-attachments/assets/a2b8369e-dc5a-4015-b707-7ecf70758e0a" />
 
     
 
