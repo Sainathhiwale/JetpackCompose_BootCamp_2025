@@ -139,6 +139,36 @@ fun displayText(name:String){
 - Cards
 - Forms
 
+# Combine Example of Row and Column
+
+ ```
+ setContent {
+          JetpackCompose_BootCamp_2025Theme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                rowAndColumnLearn()
+            }
+
+          }
+        }
+      
+   Column {
+        Text("Order Summary")
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Total")
+            Text("₹1200")
+        }
+    }
+
+  ```
+<img width="197" height="46" alt="image" src="https://github.com/user-attachments/assets/3573eb30-0f08-4b51-b390-123c0c99ea6f" />
+
 
 # Box Layout
  -Box is a layout that stacks its child composables on top of each other (Z-axis). The last child is drawn on top of the previous ones.
