@@ -1,9 +1,12 @@
 package com.examen.jetpackcompose_bootcamp_2025
 
 import android.os.Bundle
+import android.service.autofill.OnClickAction
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,10 +16,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -45,41 +52,34 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                arrangementAlignmentLearn()
+                ButtonLearn()
+                imageLearn()
             }
 
           }
         }
     }
 }
-// Alignment : Cross Axis (Row = Vertically , Column = Horizontally)
-// Arrangement : Main Axis (Row = Horizontally , Column = Vertically)
+
 @Composable
-fun arrangementAlignmentLearn() {
-    // RowAlignment : Top, CenterVertically, Bottom
-    // RowArrangement : Start, CenterHorizontally, End, spaceBetween, spaceEvenly, spaceAround, spaceBetween
-                      // Absolute.Left, Absolute.Right, Absolute.Top, Absolute.center
-                      // Absolute.spaceBetween, Absolute.spaceEvenly, Absolute.spaceAround
-
-    Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
-        Text("Row Alignment Arrangement")
+fun ButtonLearn() {
+    val context = LocalContext.current
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Button(onClick = { Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show() },
+            shape = RoundedCornerShape(5.dp), colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Text(text = "Login", color = Color.White)
+        }
     }
-    // ColumnAlignment : Start, CenterHorizontally, End
-    // ColumnArrangement : Top, CenterVertically, Bottom
-    Spacer(modifier = Modifier.height(20.dp))
+}
 
-   Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom){
-       Text("Column Alignment Arrangement")
-       Text("Column Alignment Arrangement")
-   }
-    Spacer(modifier = Modifier.height(20.dp))
+@Composable
+fun imageLearn() {
 
-    // BoxAlignment : Start, CenterHorizontally, End, Top, CenterVertically, Bottom, BottomEnd, BottomStart, TopEnd, TopStart, Center
-    // BoxArrangement : Top, CenterVertically, Bottom, Start, CenterHorizontally, End, spaceBetween, spaceEvenly, spaceAround, spaceBetween
-    Box(contentAlignment = Alignment.TopEnd){
-        Text("Box Alignment Arrangement")
-    }
-
+    Image(painter = painterResource(id = R.drawable.icon_luncher), contentDescription = "logo")
 }
 
 
@@ -87,5 +87,6 @@ fun arrangementAlignmentLearn() {
 @Preview(showBackground = true)
 @Composable
 fun learnTextAndModifierPreview() {
-    arrangementAlignmentLearn()
+    ButtonLearn()
+    imageLearn()
 }
