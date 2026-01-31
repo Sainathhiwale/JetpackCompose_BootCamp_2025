@@ -260,6 +260,25 @@ fun arrangementAlignmentLearn() {
   
   ```
 
+# What is State in jetpack compose?
+In Jetpack compose the state refers to mutable variable that tiggers recomposition when its value changes, allowing the UI to automatically reflect the updated state without manual intervention. It is key of managing and updating UI elements dynamically. 
+
+- STATE VS VARIABLES
+Recomposition Trigger
+•	State triggers recomposition when their values change, automatically updating the UI to reflect the new state.
+•	Regular variables do not trigger recomposition and require manual UI updates.
+
+Observability
+•	State are observable, enabling the framework to efficiently track changes and optimize UI updates.
+•	Regular variables lack this built-in observability.
+
+ Immutable vs Mutable
+•	State are designed to be mutable and allow modification within a composable function, while regular variables are typically immutable.
+
+ Scoped to Composables
+•	State are often scoped to composable functions, ensuring that the state is localized and specific to the UI component.
+•	Regular variables may have a broader scope.
+
 
     
 
