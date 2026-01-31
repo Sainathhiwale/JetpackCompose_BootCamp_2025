@@ -45,37 +45,47 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                rowAndColumnLearn()
+                arrangementAlignmentLearn()
             }
 
           }
         }
     }
 }
-
+// Alignment : Cross Axis (Row = Vertically , Column = Horizontally)
+// Arrangement : Main Axis (Row = Horizontally , Column = Vertically)
 @Composable
-fun rowAndColumnLearn(){
+fun arrangementAlignmentLearn() {
+    // RowAlignment : Top, CenterVertically, Bottom
+    // RowArrangement : Start, CenterHorizontally, End, spaceBetween, spaceEvenly, spaceAround, spaceBetween
+                      // Absolute.Left, Absolute.Right, Absolute.Top, Absolute.center
+                      // Absolute.spaceBetween, Absolute.spaceEvenly, Absolute.spaceAround
 
-   /* Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-         Text("Hello Jetpack Compose 1")
-         Text("Hello Jetpack Compose 2")
-         Text("Hello Jetpack Compose 3")
-    }*/
-
-   /* Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-        Text("row layout 1")
-        Spacer(modifier = Modifier.width(16.dp))
-        Text("row layout 2")
-    }*/
-    Box(modifier = Modifier.fillMaxSize().background(color = Color.Yellow), contentAlignment = Alignment.Center) {
-        Box(modifier = Modifier.width(300.dp).height(300.dp).background(Color.Blue)) {
-            Text("Hello Box layout", modifier = Modifier.align(Alignment.Center), Color.White, fontSize = 24.sp,textAlign = TextAlign.Center)
-        }
+    Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
+        Text("Row Alignment Arrangement")
     }
+    // ColumnAlignment : Start, CenterHorizontally, End
+    // ColumnArrangement : Top, CenterVertically, Bottom
+    Spacer(modifier = Modifier.height(20.dp))
+
+   Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom){
+       Text("Column Alignment Arrangement")
+       Text("Column Alignment Arrangement")
+   }
+    Spacer(modifier = Modifier.height(20.dp))
+
+    // BoxAlignment : Start, CenterHorizontally, End, Top, CenterVertically, Bottom, BottomEnd, BottomStart, TopEnd, TopStart, Center
+    // BoxArrangement : Top, CenterVertically, Bottom, Start, CenterHorizontally, End, spaceBetween, spaceEvenly, spaceAround, spaceBetween
+    Box(contentAlignment = Alignment.TopEnd){
+        Text("Box Alignment Arrangement")
+    }
+
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun learnTextAndModifierPreview() {
-        rowAndColumnLearn()
+    arrangementAlignmentLearn()
 }
