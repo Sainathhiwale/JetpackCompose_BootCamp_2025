@@ -194,11 +194,48 @@ Available space along the horizontal and vertical axes.
 <img width="531" height="235" alt="image" src="https://github.com/user-attachments/assets/a184041c-5a15-4614-a841-8c4a70df4b77" />
 
 
+- Example Arrangements Alignment
+
+   ```
+// Alignment : Cross Axis (Row = Vertically , Column = Horizontally)
+// Arrangement : Main Axis (Row = Horizontally , Column = Vertically)
+@Composable
+fun arrangementAlignmentLearn() {
+    // RowAlignment : Top, CenterVertically, Bottom
+    // RowArrangement : Start, CenterHorizontally, End, spaceBetween, spaceEvenly, spaceAround, spaceBetween
+                      // Absolute.Left, Absolute.Right, Absolute.Top, Absolute.center
+                      // Absolute.spaceBetween, Absolute.spaceEvenly, Absolute.spaceAround
+
+    Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center){
+        Text("Row Alignment Arrangement")
+    }
+    // ColumnAlignment : Start, CenterHorizontally, End
+    // ColumnArrangement : Top, CenterVertically, Bottom
+    Spacer(modifier = Modifier.height(20.dp))
+
+   Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom){
+       Text("Column Alignment Arrangement")
+       Text("Column Alignment Arrangement")
+   }
+    Spacer(modifier = Modifier.height(20.dp))
+
+    // BoxAlignment : Start, CenterHorizontally, End, Top, CenterVertically, Bottom, BottomEnd, BottomStart, TopEnd, TopStart, Center
+    // BoxArrangement : Top, CenterVertically, Bottom, Start, CenterHorizontally, End, spaceBetween, spaceEvenly, spaceAround, spaceBetween
+    Box(contentAlignment = Alignment.TopEnd){
+        Text("Box Alignment Arrangement")
+    }
+
+}
+
+
+   ```
 
 # Box Layout
  -Box is a layout that stacks its child composables on top of each other (Z-axis). The last child is drawn on top of the previous ones.
  
  <img width="532" height="275" alt="image" src="https://github.com/user-attachments/assets/a2b8369e-dc5a-4015-b707-7ecf70758e0a" />
+
+  <img width="180" height="382" alt="image" src="https://github.com/user-attachments/assets/40b0f555-44f8-405e-97a2-61a1c9ad719c" />
 
 - Example
   
@@ -222,7 +259,6 @@ Available space along the horizontal and vertical axes.
     }
   
   ```
-  <img width="180" height="382" alt="image" src="https://github.com/user-attachments/assets/40b0f555-44f8-405e-97a2-61a1c9ad719c" />
 
 
     
