@@ -1,9 +1,12 @@
 package com.examen.jetpackcompose_bootcamp_2025
 
 import android.os.Bundle
+import android.service.autofill.OnClickAction
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,10 +16,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -45,7 +52,8 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                rowAndColumnLearn()
+                ButtonLearn()
+                imageLearn()
             }
 
           }
@@ -54,28 +62,31 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun rowAndColumnLearn(){
-
-   /* Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-         Text("Hello Jetpack Compose 1")
-         Text("Hello Jetpack Compose 2")
-         Text("Hello Jetpack Compose 3")
-    }*/
-
-   /* Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-        Text("row layout 1")
-        Spacer(modifier = Modifier.width(16.dp))
-        Text("row layout 2")
-    }*/
-    Box(modifier = Modifier.fillMaxSize().background(color = Color.Yellow), contentAlignment = Alignment.Center) {
-        Box(modifier = Modifier.width(300.dp).height(300.dp).background(Color.Blue)) {
-            Text("Hello Box layout", modifier = Modifier.align(Alignment.Center), Color.White, fontSize = 24.sp,textAlign = TextAlign.Center)
+fun ButtonLearn() {
+    val context = LocalContext.current
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Button(onClick = { Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show() },
+            shape = RoundedCornerShape(5.dp), colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Text(text = "Login", color = Color.White)
         }
     }
 }
 
+@Composable
+fun imageLearn() {
+
+    Image(painter = painterResource(id = R.drawable.icon_luncher), contentDescription = "logo")
+}
+
+
+
 @Preview(showBackground = true)
 @Composable
 fun learnTextAndModifierPreview() {
-        rowAndColumnLearn()
+    ButtonLearn()
+    imageLearn()
 }
