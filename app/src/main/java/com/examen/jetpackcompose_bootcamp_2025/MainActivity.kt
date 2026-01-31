@@ -52,8 +52,8 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                ButtonLearn()
-                imageLearn()
+                stateLearn()
+
             }
 
           }
@@ -62,31 +62,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ButtonLearn() {
-    val context = LocalContext.current
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Button(onClick = { Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show() },
-            shape = RoundedCornerShape(5.dp), colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-        ) {
-            Text(text = "Login", color = Color.White)
+fun stateLearn(){
+
+    var age = 0
+    Column {
+        Button(onClick = {age++}){
+            Text(text = "I am $age years old")
         }
     }
 }
-
-@Composable
-fun imageLearn() {
-
-    Image(painter = painterResource(id = R.drawable.icon_luncher), contentDescription = "logo")
-}
-
 
 
 @Preview(showBackground = true)
 @Composable
 fun learnTextAndModifierPreview() {
-    ButtonLearn()
-    imageLearn()
+
 }
