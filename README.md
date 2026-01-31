@@ -279,6 +279,23 @@ Observability
 •	State are often scoped to composable functions, ensuring that the state is localized and specific to the UI component.
 •	Regular variables may have a broader scope.
 
+# What is remember?
+
+In Jetpack Compose ‘remember’ is a function used to retains the state across recompositions, persisting its value between calls to the composable functions. It is particularly useful for preventing stateful data without recomputing or resetting during UI updates.
+- What is mutableStateOf()?
+•	In Jetpack Compose, mutableStateOf is a function that creates a mutable state variable.
+•	It returns a pair containing the current value and a setter function, allowing modification of the state and triggering UI recomposition when the value changes.
+Exmaple
+var age by remember {
+    mutableStateOf(0)
+}
+Column {
+    Button(onClick = {age++}){
+        Text(text = "I am $age years old")
+    }
+}
+
+
 
     
 
