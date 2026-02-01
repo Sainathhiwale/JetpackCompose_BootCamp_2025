@@ -21,11 +21,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +53,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.examen.jetpackcompose_bootcamp_2025.ui.theme.GreenSG
 import com.examen.jetpackcompose_bootcamp_2025.ui.theme.JetpackCompose_BootCamp_2025Theme
 
 class MainActivity : ComponentActivity() {
@@ -53,11 +63,10 @@ class MainActivity : ComponentActivity() {
         setContent {
           JetpackCompose_BootCamp_2025Theme {
             Surface(
-                modifier = Modifier.fillMaxSize(),
+               // modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                stateLearn()
-
+                appBarLearn()
             }
 
           }
@@ -65,23 +74,43 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun stateLearn(){
-
-   // var age = 0
-    var age by remember {
-        mutableStateOf(0)
-    }
-    Column {
-        Button(onClick = {age++}){
-            Text(text = "I am $age years old")
+fun appBarLearn(){
+    val context = LocalContext.current.applicationContext
+    TopAppBar(title = { Text("WhatsApp") },
+        navigationIcon = {
+            IconButton(onClick = { Toast.makeText(context, "whatsapp", Toast.LENGTH_SHORT).show() }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.whatsapp_icon),
+                    contentDescription = "whatsapp",
+                    tint = Color.Unspecified
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = GreenSG,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White
+        ), actions = {
+            IconButton(onClick = { Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show() }){
+                Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile", tint = Color.White)
+            }
+            IconButton(onClick = { Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show() }){
+                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search", tint = Color.White)
+            }
+            IconButton(onClick = { Toast.makeText(context, "Menu", Toast.LENGTH_SHORT).show() }){
+                Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "Menu", tint = Color.White)
+            }
         }
-    }
+    )
 }
+
+
 
 
 @Preview(showBackground = true)
 @Composable
 fun learnTextAndModifierPreview() {
-
+    appBarLearn()
 }
