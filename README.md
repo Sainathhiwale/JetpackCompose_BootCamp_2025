@@ -295,8 +295,129 @@ Column {
     }
 }
 
+# ToolBar or App Bar Design using TopAppBar UI Compose.
 
 
+Example Code:
+
+<pre> ```
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        installSplashScreen()
+        setContent {
+          JetpackCompose_BootCamp_2025Theme {
+            Surface(
+               // modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                appBarLearn()
+            }
+
+          }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun appBarLearn(){
+    val context = LocalContext.current.applicationContext
+    TopAppBar(title = { Text("WhatsApp") },
+        navigationIcon = {
+            IconButton(onClick = { Toast.makeText(context, "whatsapp", Toast.LENGTH_SHORT).show() }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.whatsapp_icon),
+                    contentDescription = "whatsapp",
+                    tint = Color.Unspecified
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = GreenSG,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White
+        ), actions = {
+            IconButton(onClick = { Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show() }){
+                Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile", tint = Color.White)
+            }
+            IconButton(onClick = { Toast.makeText(context, "Search", Toast.LENGTH_SHORT).show() }){
+                Icon(imageVector = Icons.Filled.Search, contentDescription = "Search", tint = Color.White)
+            }
+            IconButton(onClick = { Toast.makeText(context, "Menu", Toast.LENGTH_SHORT).show() }){
+                Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "Menu", tint = Color.White)
+            }
+        }
+    )
+}
+
+kotlin Text("Tool bar") ``` </pre>
+
+
+**# Color.kt**
+
+<pre> ```
+val GreenSG = Color(0xFF3FDC85)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+
+val Purple40 = Color(0xFF6650a4)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)
+
+kotlin Text("Tool Bar") ``` </pre>
+
+
+# Theme.kt
+
+<pre> ```
+
+private val DarkColorScheme = darkColorScheme(
+    primary = GreenSG,
+    secondary = PurpleGrey80,
+    tertiary = Pink80
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = GreenSG,
+    secondary = PurpleGrey40,
+    tertiary = Pink40
+)
+
+@Composable
+fun JetpackCompose_BootCamp_2025Theme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = GreenSG.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+        }
+
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
+}
+
+kotlin Text("Tool Bar") ``` </pre>
     
 
 
