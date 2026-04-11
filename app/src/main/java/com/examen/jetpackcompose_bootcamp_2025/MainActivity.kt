@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
 
 }
 
-
+// bottom navigation example
 @Composable
 fun navigationBottomLearn() {
 
