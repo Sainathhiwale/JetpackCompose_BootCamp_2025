@@ -11,14 +11,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.examen.jetpackcompose_bootcamp_2025.ui.theme.GreenSG
 
+
 @Composable
-fun Home() {
+fun Search() {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize().align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Home", fontSize = 30.sp, color = GreenSG)
+            Text(text = "Search", fontSize = 30.sp, color = GreenSG)
         }
 
     }
@@ -26,6 +27,6 @@ fun Home() {
 
 @Preview(showBackground = true)
 @Composable
-fun homeNavigationDrawerPreview() {
-    Home()
+fun searchPreview() {
+    Search()
 }
