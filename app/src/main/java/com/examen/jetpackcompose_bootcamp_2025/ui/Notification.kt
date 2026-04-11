@@ -11,21 +11,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.examen.jetpackcompose_bootcamp_2025.ui.theme.GreenSG
 
+
 @Composable
-fun Home() {
+fun Notification() {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize().align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Home", fontSize = 30.sp, color = GreenSG)
+           Text(text = "Notification", fontSize = 30.sp, color = GreenSG)
         }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun homeNavigationDrawerPreview() {
-    Home()
+fun notificationPreview() {
+    Notification()
 }
