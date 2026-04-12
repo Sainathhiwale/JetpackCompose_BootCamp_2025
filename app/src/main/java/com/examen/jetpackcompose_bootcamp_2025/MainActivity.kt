@@ -1,11 +1,16 @@
 package com.examen.jetpackcompose_bootcamp_2025
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,11 +19,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Divider
@@ -28,6 +37,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -37,13 +47,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,6 +68,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.examen.jetpackcompose_bootcamp_2025.ui.Home
 import com.examen.jetpackcompose_bootcamp_2025.ui.Notification
+import com.examen.jetpackcompose_bootcamp_2025.ui.Post
 import com.examen.jetpackcompose_bootcamp_2025.ui.Profile
 import com.examen.jetpackcompose_bootcamp_2025.ui.Search
 import com.examen.jetpackcompose_bootcamp_2025.ui.Settings
@@ -82,6 +97,7 @@ class MainActivity : ComponentActivity() {
 }
 
 // bottom navigation example
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun navigationBottomLearn() {
 
@@ -90,6 +106,11 @@ fun navigationBottomLearn() {
 
     val selected = remember {
         mutableStateOf(Icons.Default.Home)
+    }
+
+    val sheetState = rememberModalBottomSheetState()
+    var showBottomSheet by remember {
+        mutableStateOf(false)
     }
 
     Scaffold(
@@ -146,7 +167,7 @@ fun navigationBottomLearn() {
                 ) {
                     FloatingActionButton(
                         onClick = {
-                            Toast.makeText(context, "Action button clicked", Toast.LENGTH_SHORT).show()
+                            showBottomSheet =true
                         },
                         containerColor = Color.White
                     ) {
@@ -212,8 +233,49 @@ fun navigationBottomLearn() {
             composable(Screen.Notification.route) { Notification() }
             composable(Screen.Profile.route) { Profile() }
             composable(Screen.Settings.route) { Settings() }
+            composable(Screen.Post.route) { Post() }
         }
     }
+    if (showBottomSheet){
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet =false },
+            sheetState = sheetState
+        ){
+          Column(modifier = Modifier.fillMaxWidth()
+              .padding(18.dp),
+              verticalArrangement = Arrangement.spacedBy(20.dp)) {
+              BottomSheetItem(icon = Icons.Default.ThumbUp, title = "created a Post") {
+                  showBottomSheet = false
+                  navigationController.navigate(Screen.Post.route) {
+                      popUpTo(0)
+                  }
+              }
+              BottomSheetItem(icon = Icons.Default.Star, title = "add a story") {
+                  Toast.makeText(context, "add a story", Toast.LENGTH_SHORT).show()
+              }
+              BottomSheetItem(icon = Icons.Default.PlayArrow, title = "create a Reel") {
+                  Toast.makeText(context, "add a Reel", Toast.LENGTH_SHORT).show()
+              }
+              BottomSheetItem(icon = Icons.Default.Favorite, title = "Go to Live") {
+                  Toast.makeText(context, "Live", Toast.LENGTH_SHORT).show()
+              }
+
+
+          }
+        }
+    }
+}
+
+@Composable
+fun BottomSheetItem(icon: ImageVector, title:String, onClick: () -> Unit){
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.clickable { onClick() }
+    ){
+        Icon(imageVector = icon, contentDescription = null, tint = GreenSG)
+        Text(text = title, fontSize = 22.sp, color = GreenSG)
+    }
+
 }
 
 
