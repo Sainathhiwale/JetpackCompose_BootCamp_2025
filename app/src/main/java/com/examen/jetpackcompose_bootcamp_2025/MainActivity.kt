@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
                    // modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    navigationBottomLearn()
+                    learnNavBotSheet()
                 }
 
             }
@@ -95,6 +95,292 @@ class MainActivity : ComponentActivity() {
     }
 
 }
+
+//Navigation drawer Bottom navigation Bottom Sheet
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun learnNavBotSheet() {
+    val navigationController = rememberNavController()
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val context = LocalContext.current.applicationContext
+
+    val selected = remember {
+        mutableStateOf(Icons.Default.Home)
+    }
+
+    val sheetState = rememberModalBottomSheetState()
+    var showBottomSheet by remember {
+        mutableStateOf(false)
+    }
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = true,
+        drawerContent = {
+            ModalDrawerSheet {
+                Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .background(GreenSG)) {
+                    Text(text = "")
+                }
+
+                Divider()
+
+                NavigationDrawerItem(
+                    label = { Text("Home", color = GreenSG) },
+                    selected = false,
+                    icon = {
+                        Icon(Icons.Default.Home, contentDescription = "Home", tint = GreenSG)
+                    },
+                    onClick = {
+                        coroutineScope.launch { drawerState.close() }
+                        navigationController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Home.route) { inclusive = true }
+                        }
+                    }
+                )
+
+                NavigationDrawerItem(
+                    label = { Text("Profile", color = GreenSG) },
+                    selected = false,
+                    icon = {
+                        Icon(Icons.Default.Home, contentDescription = "Profile", tint = GreenSG)
+                    },
+                    onClick = {
+                        coroutineScope.launch { drawerState.close() }
+                        navigationController.navigate(Screen.Profile.route) {
+                            popUpTo(Screen.Profile.route) { inclusive = true }
+                        }
+                    }
+                )
+
+                NavigationDrawerItem(
+                    label = { Text("Settings", color = GreenSG) },
+                    selected = false,
+                    icon = {
+                        Icon(Icons.Default.Home, contentDescription = "Settings", tint = GreenSG)
+                    },
+                    onClick = {
+                        coroutineScope.launch { drawerState.close() }
+                        navigationController.navigate(Screen.Settings.route) {
+                            popUpTo(Screen.Settings.route) { inclusive = true }
+                        }
+                    }
+                )
+
+                NavigationDrawerItem(
+                    label = { Text("Logout", color = GreenSG) },
+                    selected = false,
+                    icon = {
+                        Icon(Icons.Default.Home, contentDescription = "Logout", tint = GreenSG)
+                    },
+                    onClick = {
+                        coroutineScope.launch { drawerState.close() }
+                        navigationController.navigate(Screen.Home.route) {
+                            popUpTo(navigationController.graph.startDestinationId) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            }
+        }){
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("WhatsApp") },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = GreenSG,
+                        titleContentColor = Color.White,
+                        navigationIconContentColor = Color.White
+                    ),
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                drawerState.open()
+                            }
+                        }) {
+                            Icon(Icons.Rounded.Menu, contentDescription = "MenuButton")
+                        }
+                    }
+                )
+            },
+            bottomBar = {
+                BottomAppBar(
+                    containerColor = GreenSG
+                ){
+                    // Left side
+                    IconButton(
+                        onClick = {
+                            selected.value = Icons.Default.Home
+
+                            navigationController.navigate(Screen.Home.route) {
+                                popUpTo(navigationController.graph.startDestinationId)
+                                launchSingleTop = true
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp),
+                            tint = if (selected.value == Icons.Default.Home)
+                                Color.White else Color.DarkGray
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            selected.value = Icons.Default.Search
+
+                            navigationController.navigate(Screen.Search.route) {
+                                popUpTo(navigationController.graph.startDestinationId)
+                                launchSingleTop = true
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp),
+                            tint = if (selected.value == Icons.Default.Search)
+                                Color.White else Color.DarkGray
+                        )
+                    }
+
+                    // Center FAB button
+                    Box(
+                        modifier = Modifier
+                            .weight(1f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        FloatingActionButton(
+                            onClick = {
+                                showBottomSheet =true
+                            },
+                            containerColor = Color.White
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = null,
+                                tint = GreenSG
+                            )
+                        }
+                    }
+                    // Right side
+                    IconButton(
+                        onClick = {
+                            selected.value = Icons.Default.Notifications
+
+                            navigationController.navigate(Screen.Notification.route) {
+                                popUpTo(navigationController.graph.startDestinationId)
+                                launchSingleTop = true
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp),
+                            tint = if (selected.value == Icons.Default.Search)
+                                Color.White else Color.DarkGray
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            selected.value = Icons.Default.Person
+
+                            navigationController.navigate(Screen.Profile.route) {
+                                popUpTo(navigationController.graph.startDestinationId)
+                                launchSingleTop = true
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp),
+                            tint = if (selected.value == Icons.Default.Person)
+                                Color.White else Color.DarkGray
+                        )
+                    }
+                }
+            }
+        ) { paddingValues ->
+
+            // NavHost should be here (NOT inside TopAppBar)
+            NavHost(
+                navController = navigationController,
+                startDestination = Screen.Home.route,
+                modifier = Modifier.padding(paddingValues)
+            ) {
+                composable(Screen.Home.route) { Home() }
+                composable(Screen.Profile.route) { Profile() }
+                composable(Screen.Settings.route) { Settings() }
+                composable(Screen.Search.route) { Search() }
+                composable(Screen.Notification.route) { Notification() }
+                composable(Screen.Post.route) { Post() }
+            }
+        }
+        if (showBottomSheet){
+            ModalBottomSheet(
+                onDismissRequest = { showBottomSheet =false },
+                sheetState = sheetState
+            ){
+                Column(modifier = Modifier.fillMaxWidth()
+                    .padding(18.dp),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    BottomSheetItem(icon = Icons.Default.ThumbUp, title = "created a Post") {
+                        showBottomSheet = false
+                        navigationController.navigate(Screen.Post.route) {
+                            popUpTo(0)
+                        }
+                    }
+                    BottomSheetItem(icon = Icons.Default.Star, title = "add a story") {
+                        Toast.makeText(context, "add a story", Toast.LENGTH_SHORT).show()
+                    }
+                    BottomSheetItem(icon = Icons.Default.PlayArrow, title = "create a Reel") {
+                        Toast.makeText(context, "add a Reel", Toast.LENGTH_SHORT).show()
+                    }
+                    BottomSheetItem(icon = Icons.Default.Favorite, title = "Go to Live") {
+                        Toast.makeText(context, "Live", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                }
+            }
+        }
+    }
+
+}
+// show bottom sheet click on floating button
+@Composable
+fun BottomSheetItem(icon: ImageVector, title:String, onClick: () -> Unit){
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.clickable { onClick() }
+    ){
+        Icon(imageVector = icon, contentDescription = null, tint = GreenSG)
+        Text(text = title, fontSize = 22.sp, color = GreenSG)
+    }
+
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun learnNavBotSheetPreview() {
+    learnNavBotSheet()
+}
+
+
+/*
 
 // bottom navigation example
 @OptIn(ExperimentalMaterial3Api::class)
@@ -277,9 +563,10 @@ fun BottomSheetItem(icon: ImageVector, title:String, onClick: () -> Unit){
     }
 
 }
+*/
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+/*@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun navigationDrawerLearn() {
 
@@ -402,16 +689,16 @@ fun navigationDrawerLearn() {
     }
 }
 
-/*@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun learnNavigationDrawerPreview() {
     navigationDrawerLearn()
-}*/
+}
 
 @Preview(showBackground = true)
 @Composable
 fun learnNavigationBottomPreview() {
     //navigationDrawerLearn()
     navigationBottomLearn()
-}
+}*/
 
