@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +18,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
@@ -30,6 +33,8 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,9 +46,11 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
@@ -56,13 +63,19 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -83,17 +96,146 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             JetpackCompose_BootCamp_2025Theme {
-                Surface(
-                   // modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                Box(
+                    modifier = Modifier.fillMaxSize(),
                 ) {
-                    learnNavBotSheet()
+                   val navController = rememberNavController()
+                    navGraph(navController = navController)
                 }
 
             }
         }
     }
 
+}
+
+@Composable
+fun Loginscreen(onLoginSuccess: () -> Unit){
+
+    var userName by  remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val context = LocalContext.current.applicationContext
+
+    Column(modifier = Modifier.fillMaxSize()
+        .padding(horizontal = 20.dp,vertical = 16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+
+        OutlinedTextField(
+            value = userName,
+            onValueChange = { userName = it },
+            label = { Text(text = "userName") },
+            shape = RoundedCornerShape(20.dp),
+            colors = TextFieldDefaults.colors(
+                focusedLeadingIconColor = GreenSG,
+                unfocusedLeadingIconColor = GreenSG,
+                focusedLabelColor = GreenSG,
+                unfocusedLabelColor = GreenSG,
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedIndicatorColor = GreenSG,
+                unfocusedIndicatorColor = GreenSG,
+                focusedPlaceholderColor = GreenSG,
+                unfocusedPlaceholderColor = GreenSG,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
+            ),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = null
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text(text = "password") },
+            shape = RoundedCornerShape(20.dp),
+            colors = TextFieldDefaults.colors(
+                focusedLeadingIconColor = GreenSG,
+                unfocusedLeadingIconColor = GreenSG,
+                focusedLabelColor = GreenSG,
+                unfocusedLabelColor = GreenSG,
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedIndicatorColor = GreenSG,
+                unfocusedIndicatorColor = GreenSG,
+                focusedPlaceholderColor = GreenSG,
+                unfocusedPlaceholderColor = GreenSG,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
+            ),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = null
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            visualTransformation = PasswordVisualTransformation()
+
+        )
+        Button(
+            onClick = {
+                if (authenticateUser(userName.trim(), password.trim())) {
+                    onLoginSuccess()
+                    Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                }
+            },
+            colors = ButtonDefaults.buttonColors(GreenSG),
+            contentPadding = PaddingValues(
+                start = 60.dp,
+                end = 60.dp,
+                top = 10.dp,
+                bottom = 10.dp
+            ),
+            modifier = Modifier.padding(top = 18.dp)
+        ) {
+            Text(text = "Login", fontSize = 22.sp)
+        }
+    }
+}
+
+private fun authenticateUser(userName: String, password: String):Boolean{
+    val validUserName = "admin"
+    val validPassword = "password"
+    return  userName == validUserName && password == validPassword
+}
+@Composable
+fun navGraph(navController: NavHostController) {
+    NavHost(
+        navController = navController,
+        startDestination = "login"
+    ) {
+
+        composable("login") {
+            Loginscreen(onLoginSuccess = {
+                navController.navigate("home") {
+                    popUpTo(0)
+                }
+            })
+        }
+
+        composable(Screen.Home.route) {
+            learnNavBotSheet()
+        }
+    }
+}
+
+
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun learnloginScreenPreview() {
+    Loginscreen(onLoginSuccess = {})
 }
 
 //Navigation drawer Bottom navigation Bottom Sheet
@@ -376,7 +518,7 @@ fun BottomSheetItem(icon: ImageVector, title:String, onClick: () -> Unit){
 @Preview(showBackground = true)
 @Composable
 fun learnNavBotSheetPreview() {
-    learnNavBotSheet()
+   // learnNavBotSheet()
 }
 
 
